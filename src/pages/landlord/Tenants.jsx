@@ -66,14 +66,14 @@ export default function Tenants() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black" style={{ color: '#0F172A' }}>Tenants</h1>
-          <p className="text-sm mt-0.5" style={{ color: '#94A3B8' }}>{tenants.length} total</p>
+          <h1 className="text-xl sm:text-3xl font-black" style={{ color: '#0F172A' }}>Tenants</h1>
+          <p className="text-xs sm:text-sm mt-0.5" style={{ color: '#94A3B8' }}>{tenants.length} total</p>
         </div>
         <div className="flex items-center gap-2">
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="text-sm font-semibold focus:outline-none rounded-xl px-3 py-2"
+            className="text-xs sm:text-sm font-semibold focus:outline-none rounded-xl px-2.5 py-2"
             style={{ background: '#fff', border: '1.5px solid #E2E8F0', color: '#0F172A', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', cursor: 'pointer' }}
           >
             {monthOptions.map((m) => (
@@ -82,10 +82,10 @@ export default function Tenants() {
           </select>
           <button
             onClick={() => navigate('/add-tenant')}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white"
+            className="flex items-center gap-1.5 px-3 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white whitespace-nowrap"
             style={{ background: 'linear-gradient(135deg,#6366F1,#4F46E5)', boxShadow: '0 4px 14px rgba(99,102,241,0.35)' }}
           >
-            <UserPlus size={15} /> Add Tenant
+            <UserPlus size={14} /> Add Tenant
           </button>
         </div>
       </div>
