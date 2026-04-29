@@ -35,10 +35,10 @@ export default function Tenants() {
   const navigate = useNavigate();
   const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch]   = useState('');
-  const [month, setMonth]     = useState(() => new Date().toISOString().slice(0, 7));
-  const [modal, setModal]     = useState({ open: false, tenantName: '', amountDue: 0, rentRecordId: null });
-  const monthOptions          = getMonthOptions();
+  const [search, setSearch] = useState('');
+  const [month, setMonth] = useState(() => new Date().toISOString().slice(0, 7));
+  const [modal, setModal] = useState({ open: false, tenantName: '', amountDue: 0, rentRecordId: null });
+  const monthOptions = getMonthOptions();
 
   const fetchTenants = async () => {
     setLoading(true);
@@ -70,6 +70,8 @@ export default function Tenants() {
           <p className="text-xs sm:text-sm mt-0.5" style={{ color: '#94A3B8' }}>{tenants.length} total</p>
         </div>
         <div className="flex items-center gap-2">
+
+
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
@@ -111,18 +113,18 @@ export default function Tenants() {
         </div>
       ) : tenants.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 rounded-3xl"
-             style={{ background: '#fff', border: '1.5px solid #E2E8F0' }}>
+          style={{ background: '#fff', border: '1.5px solid #E2E8F0' }}>
           <p className="font-bold text-lg mb-1" style={{ color: '#0F172A' }}>No tenants yet</p>
           <p className="text-sm mb-6" style={{ color: '#94A3B8' }}>Add your first tenant to get started</p>
           <button onClick={() => navigate('/add-tenant')}
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white"
-                  style={{ background: 'linear-gradient(135deg,#6366F1,#4F46E5)', boxShadow: '0 4px 14px rgba(99,102,241,0.35)' }}>
+            className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white"
+            style={{ background: 'linear-gradient(135deg,#6366F1,#4F46E5)', boxShadow: '0 4px 14px rgba(99,102,241,0.35)' }}>
             <UserPlus size={15} /> Add Tenant
           </button>
         </div>
       ) : filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 rounded-3xl"
-             style={{ background: '#fff', border: '1.5px solid #E2E8F0' }}>
+          style={{ background: '#fff', border: '1.5px solid #E2E8F0' }}>
           <p className="font-bold text-lg" style={{ color: '#0F172A' }}>No results</p>
           <p className="text-sm mt-1" style={{ color: '#94A3B8' }}>Try a different search term</p>
         </div>
@@ -134,12 +136,12 @@ export default function Tenants() {
             const balance = rr ? rr.amount_due - rr.amount_paid : 0;
             return (
               <div key={tenant.id}
-                   className="rounded-2xl overflow-hidden flex flex-col transition-shadow hover:shadow-lg"
-                   style={{ background: '#fff', border: '1.5px solid #E2E8F0', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                className="rounded-2xl overflow-hidden flex flex-col transition-shadow hover:shadow-lg"
+                style={{ background: '#fff', border: '1.5px solid #E2E8F0', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center gap-3 p-4 cursor-pointer flex-1"
-                     onClick={() => navigate(`/tenants/${tenant.id}`)}>
+                  onClick={() => navigate(`/tenants/${tenant.id}`)}>
                   <div className="w-11 h-11 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                       style={{ background: avatarGrad(tenant.name) }}>
+                    style={{ background: avatarGrad(tenant.name) }}>
                     {tenant.name[0]}
                   </div>
                   <div className="min-w-0 flex-1">
