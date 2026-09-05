@@ -4,6 +4,19 @@ import { register as apiRegister } from '../../api/landlord/auth';
 import { useAuth } from '../../hooks/useAuth';
 import { ArrowRight, Lock, Mail, User, Phone, Building2 } from 'lucide-react';
 
+// FastAPI returns `detail` as a plain string for HTTPException (e.g. duplicate
+// email), but as an array of {msg, ...} objects for Pydantic validation errors
+// (e.g. password too short) — rendering the array directly as a JSX child
+// would crash the page, so normalize both shapes to a string here.
+function extractErrorMessage(err, fallback) {
+  const detail = err.response?.data?.detail;
+  if (typeof detail === 'string') return detail;
+  if (Array.isArray(detail) && detail.length > 0) {
+    return detail.map((d) => d.msg || fallback).join(', ');
+  }
+  return fallback;
+}
+
 export default function Register() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -26,7 +39,7 @@ export default function Register() {
       login(data.access_token, { id: data.user_id, name: data.user_name });
       navigate('/', { replace: true });
     } catch (err) {
-      setError(err.response?.data?.detail || 'Registration failed. Please try again.');
+      setError(extractErrorMessage(err, 'Registration failed. Please try again.'));
     } finally {
       setLoading(false);
     }
@@ -133,8 +146,8 @@ export default function Register() {
               <label className="block text-xs font-bold mb-1.5 uppercase tracking-wide" style={{ color: '#64748B' }}>Password</label>
               <div className="relative">
                 <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#94A3B8' }} />
-                <input type="password" value={form.password} onChange={set('password')} required minLength={6}
-                       style={inputStyle} onFocus={onFocus} onBlur={onBlur} placeholder="Min. 6 characters" />
+                <input type="password" value={form.password} onChange={set('password')} required minLength={8}
+                       style={inputStyle} onFocus={onFocus} onBlur={onBlur} placeholder="Min. 8 characters" />
               </div>
             </div>
 

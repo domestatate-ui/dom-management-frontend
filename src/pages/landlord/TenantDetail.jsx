@@ -330,7 +330,7 @@ export default function TenantDetail() {
               <div className="rounded-2xl p-4 space-y-3" style={{ background: '#F0F4FF', border: '1.5px solid #C7D2FE' }}>
                 <p className="text-xs font-semibold" style={{ color: '#4338CA' }}>Set a portal password for {tenant.name}</p>
                 <input
-                  type="password" placeholder="New password"
+                  type="password" placeholder="New password (min. 8 characters)" minLength={8}
                   value={portalForm.password}
                   onChange={e => setPortalForm(f => ({ ...f, password: e.target.value }))}
                   className="w-full px-3 py-2 rounded-xl text-sm outline-none"
@@ -341,7 +341,7 @@ export default function TenantDetail() {
                     className="flex-1 py-2 rounded-xl text-xs font-semibold"
                     style={{ border: '1.5px solid #E2E8F0', color: '#64748B' }}>Cancel</button>
                   <button
-                    disabled={!portalForm.password || portalForm.loading}
+                    disabled={portalForm.password.length < 8 || portalForm.loading}
                     onClick={async () => {
                       setPortalForm(f => ({ ...f, loading: true }));
                       try {
@@ -355,7 +355,7 @@ export default function TenantDetail() {
                       }
                     }}
                     className="flex-1 py-2 rounded-xl text-xs font-bold text-white"
-                    style={{ background: 'linear-gradient(135deg,#6366F1,#4F46E5)', opacity: !portalForm.password || portalForm.loading ? 0.7 : 1 }}>
+                    style={{ background: 'linear-gradient(135deg,#6366F1,#4F46E5)', opacity: portalForm.password.length < 8 || portalForm.loading ? 0.7 : 1 }}>
                     {portalForm.loading ? 'Enabling…' : 'Enable'}
                   </button>
                 </div>
